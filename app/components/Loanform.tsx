@@ -54,7 +54,7 @@ export default function LoanForm({processLoan}: Props) {
             <input
                 type="password"
                 value={pin}
-                placeholder="Enter PIN"
+                placeholder="Pin"
                 onChange={(e) => setPin(e.target.value)}
                 style={stlyes.input}
             />
