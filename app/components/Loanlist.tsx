@@ -34,6 +34,9 @@ export default function LoanList({ loans }: Props) {
               Total: Ksh {loan.totalRepayable}
 
               <br />
+              Balance: Ksh {loan.remainingBalance}
+
+              <br />
               {loan.status}
 
               <br />

@@ -147,7 +147,8 @@ export default function Dashboard() {
       status: "active",
       dueDate: dueDate.toISOString(),
       interest,
-      totalRepayable
+      totalRepayable,
+      remainingBalance: totalRepayable
     };
 
 

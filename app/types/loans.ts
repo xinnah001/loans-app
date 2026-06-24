@@ -7,4 +7,5 @@ export type Loan = {
     repaidDate?: string;
     interest: number;
     totalRepayable: number;
+    remainingBalance: number;
 };

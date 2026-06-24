@@ -7,19 +7,12 @@ import { Loan } from "@/app/types/loans";
 export default function RepayLoanPage() {
   const params = useParams();
   const router = useRouter();
-
   const loanId = Number(params.id);
-
   const [loan, setLoan] = useState<Loan | null>(null);
-
-  const [sourcePhoneNumber, setSourcePhoneNumber] =
-    useState("");
-
-  const [pin, setPin] =
-    useState("");
-
-
-
+  const [sourcePhoneNumber, setSourcePhoneNumber] = useState("");
+  const [pin, setPin] = useState("");
+  const [repayableAmount, setRepayableAmount] = useState("");
+    
   useEffect(() => {
     const currentUser =
       localStorage.getItem("currentUser");
@@ -93,16 +86,42 @@ export default function RepayLoanPage() {
 
     const loans: Loan[] = JSON.parse(savedLoans)
     
-    const updatedLoans =
-      loans.map((loan: Loan) =>
-        loan.id === loanId
-          ? {
-              ...loan,
-              status: "paid",
-              repaidDate: new Date().toISOString(),
-            }
-          : loan
-      );
+    const amountPaid = Number(repayableAmount);
+
+    if (isNaN(amountPaid) || amountPaid <= 0) {
+      alert("Enter Amount")
+      return;
+    }
+
+    const updatedLoans = 
+      loans.map((loan: Loan) => {
+        if (loanId !== loan.id) {
+          return loan;
+        }
+
+        if (amountPaid > loan.remainingBalance) {
+          alert(`Debt is Ksh ${loan.remainingBalance}`);
+          return loan;
+        }
+
+        const newBalance = loan.remainingBalance - amountPaid;
+
+        const fullyPaid = newBalance <= 0;
+
+        return {
+          ...loan,
+          remainingBalance: Math.max(newBalance, 0),
+          status: 
+            fullyPaid
+              ? "paid"
+              : "active",
+          repaidDate: 
+            fullyPaid
+              ? new Date().toISOString()
+              : undefined,
+        };
+      });
+
     const repaidLoan =
       updatedLoans.find(
         (loan) => loan.id === loanId
@@ -110,41 +129,43 @@ export default function RepayLoanPage() {
 
     if (!repaidLoan) return;
 
-    const repaidOnTime =
-      new Date(repaidLoan.repaidDate!) <=
-      new Date(repaidLoan.dueDate);
+    if (repaidLoan.status === "paid") {
+      const repaidOnTime =
+        new Date(repaidLoan.repaidDate!) <=
+        new Date(repaidLoan.dueDate);
 
-    if (!user.loanLimit) {
-      user.loanLimit = 50000;
-    }
+      if (!user.loanLimit) {
+        user.loanLimit = 50000;
+      }
 
-    if (repaidOnTime) {
-      user.loanLimit = Math.min(
-        user.loanLimit + 5000,
-        100000
+      if (repaidOnTime) {
+        user.loanLimit = Math.min(
+          user.loanLimit + 5000,
+          100000
+        );
+      } else {
+        user.loanLimit = Math.max(
+          user.loanLimit - 5000,
+          5000
+        );
+      };
+
+      localStorage.setItem("currentUser", JSON.stringify(user));
+
+      const users = JSON.parse(
+        localStorage.getItem("users") || "[]"
       );
-    } else {
-      user.loanLimit = Math.max(
-        user.loanLimit - 5000,
-        5000
+
+      const updatedUsers = users.map(
+        (u: any) =>
+          u.id === user.id ? user : u
+      );
+
+      localStorage.setItem(
+        "users",
+        JSON.stringify(updatedUsers)
       );
     };
-
-    localStorage.setItem("currentUser", JSON.stringify(user));
-
-    const users = JSON.parse(
-      localStorage.getItem("users") || "[]"
-    );
-
-    const updatedUsers = users.map(
-      (u: any) =>
-        u.id === user.id ? user : u
-    );
-
-    localStorage.setItem(
-      "users",
-      JSON.stringify(updatedUsers)
-    );
 
     localStorage.setItem(
       `loans-${user.id}`,
@@ -152,7 +173,9 @@ export default function RepayLoanPage() {
     );
 
     alert(
-      "Loan repaid successfully"
+      repaidLoan.status === "paid"
+        ? "Loan Fully Paid"
+        : "Partial Loan Paid"
     );
 
     router.push(`/dashboard/${user.id}`);
@@ -191,6 +214,12 @@ export default function RepayLoanPage() {
       </h3>
 
       <h3>
+        Balance:
+        {" "}
+        Ksh {loan.remainingBalance}
+      </h3>
+
+      <h3>
         Status:
         {" "}
         {loan.status}
@@ -204,6 +233,20 @@ export default function RepayLoanPage() {
         value={sourcePhoneNumber}
         onChange={(e) =>
           setSourcePhoneNumber(
+            e.target.value
+          )
+        }
+      />
+
+      <br />
+      <br />
+      
+      <input
+        type="text"
+        placeholder="Repayment Amount"
+        value={repayableAmount}
+        onChange={(e) =>
+          setRepayableAmount(
             e.target.value
           )
         }
