@@ -173,9 +173,21 @@ export default function RepayLoanPage() {
       </h3>
 
       <h3>
-        Amount:
+        Amount Borrowed:
         {" "}
-        Ksh {loan.amount}
+        Ksh {loan.amountBorrowed}
+      </h3>
+
+      <h3>
+        Interest:
+        {" "}
+        Ksh {loan.interest}
+      </h3>
+
+      <h3>
+        Total Repayable:
+        {" "}
+        Ksh {loan.totalRepayable}
       </h3>
 
       <h3>

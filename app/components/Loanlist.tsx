@@ -25,7 +25,13 @@ export default function LoanList({ loans }: Props) {
               {loan.phoneNumber}
 
               <br />
-              Ksh {loan.amount}
+              Amount Borrowed: Ksh {loan.amountBorrowed}
+
+              <br />
+              Interest: Ksh {loan.interest}
+
+              <br />
+              Total: Ksh {loan.totalRepayable}
 
               <br />
               {loan.status}

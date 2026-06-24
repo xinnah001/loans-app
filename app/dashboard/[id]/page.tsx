@@ -97,13 +97,13 @@ export default function Dashboard() {
     loanLimit - 
     loans
       .filter((loan) => loan.status === "active")
-      .reduce((sum, loan) => sum + loan.amount,
+      .reduce((sum, loan) => sum + loan.amountBorrowed,
        0
     );
 
   const processLoan = (
     phoneNumber: string,
-    amount: number,
+    amountBorrowed: number,
     pin: string,
   ) => {
     const currentUser = localStorage.getItem("currentUser");
@@ -118,7 +118,7 @@ export default function Dashboard() {
       return;
     }
 
-    if(amount > balance) {
+    if(amountBorrowed > balance) {
       alert("Insufficient funds")
       return;
     }
@@ -127,14 +127,29 @@ export default function Dashboard() {
     dueDate.setDate(dueDate.getDate() + 30); 
 
     console.log(dueDate.toISOString());
+
+    let interestRate = 0.1;
+
+    if (amountBorrowed > 30000) {
+      interestRate = 0.3;
+    } else if (amountBorrowed > 10000) {
+      interestRate = 0.2;
+    }
+
+    const interest = amountBorrowed * interestRate;
+
+    const totalRepayable = amountBorrowed + interest;
   
     const newLoan: Loan = {
       id: Date.now(),
       phoneNumber,
-      amount,
+      amountBorrowed,
       status: "active",
       dueDate: dueDate.toISOString(),
+      interest,
+      totalRepayable
     };
+
 
     setLoans([
       newLoan,

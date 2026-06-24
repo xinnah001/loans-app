@@ -22,6 +22,7 @@ export default function LoanForm({processLoan}: Props) {
 
         if (!accountNumber || !amount) return;
 
+
         processLoan(
             accountNumber,
             Number(amount),
@@ -58,7 +59,7 @@ export default function LoanForm({processLoan}: Props) {
                 style={stlyes.input}
             />
 
-            <button type="submit" style={stlyes.button}>Add Loan</button>
+            <button type="submit" style={stlyes.button} >Add Loan</button>
         </form>
   
     );
