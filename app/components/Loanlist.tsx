@@ -2,6 +2,7 @@
 
 import { Loan } from "../types/loans";
 import { useRouter } from "next/navigation";
+import  Countdown  from "./Countdown"
 
 type Props = {
   loans: Loan[];
@@ -42,6 +43,9 @@ export default function LoanList({ loans }: Props) {
               <br />
               Due: {new Date(loan.dueDate).toLocaleDateString()}
 
+              <br />
+              <Countdown dueDate={loan.dueDate}/>
+                
               <br />
               {overdue && (
                 <p style={{ color: "red"}}>Overdue</p>

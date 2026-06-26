@@ -153,7 +153,7 @@ export default function Dashboard() {
     const interest = amountBorrowed * interestRate;
 
     const totalRepayable = amountBorrowed + interest;
-  
+
     const newLoan: Loan = {
       id: Date.now(),
       phoneNumber,
