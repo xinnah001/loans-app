@@ -105,6 +105,7 @@ export default function Dashboard() {
     phoneNumber: string,
     amountBorrowed: number,
     pin: string,
+    dueDate: string
   ) => {
     const currentUser = localStorage.getItem("currentUser");
     if (!currentUser) {
@@ -123,10 +124,23 @@ export default function Dashboard() {
       return;
     }
 
-    const dueDate = new Date();
-    dueDate.setDate(dueDate.getDate() + 30); 
+    const today = new Date();
+    const selectedDate = new Date(dueDate);
+    const maxDate = new Date();
 
-    console.log(dueDate.toISOString());
+    maxDate.setDate(
+      maxDate.getDate() + 30
+    );
+
+    if (selectedDate <= today) {
+      alert("Due Date Must Be After Date Of Loan Allocation");
+      return;
+    }
+
+    if (selectedDate > maxDate) {
+      alert("Due Date Can't Exceed 30 Days");
+      return;
+    }
 
     let interestRate = 0.1;
 
@@ -145,7 +159,7 @@ export default function Dashboard() {
       phoneNumber,
       amountBorrowed,
       status: "active",
-      dueDate: dueDate.toISOString(),
+      dueDate,
       interest,
       totalRepayable,
       remainingBalance: totalRepayable
