@@ -1,12 +1,14 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function SingUpPage() {
     const [userName, setUserName] = useState("");
     const [password, setPassword] = useState("");
     const [pin, setPin] = useState("");
     const [phoneNumber, setPhoneNumber] = useState("");
+    const [acceptTerms, setAcceptTerms] = useState(false)
     const router = useRouter();
 
     const handleSignUp = () => {
@@ -25,6 +27,11 @@ export default function SingUpPage() {
         );
         if (existingUser) {
             alert("User Already Exists");
+            return;
+        }
+
+        if (!acceptTerms) {
+            alert("Please Accept The Terms & Conditions");
             return;
         }
 
@@ -86,6 +93,24 @@ export default function SingUpPage() {
                 placeholder="Pin"
                 onChange={((e) => setPin(e.target.value))}
             />
+            
+            <br />
+            <br />
+
+            <label>
+                <input 
+                    type="checkbox"
+                    checked={acceptTerms}
+                    onChange={((e) => setAcceptTerms(e.target.checked))}
+                    
+                />
+                <Link 
+                    href="/terms"
+                    style={{ color: "blue"}}
+                >
+                    Terms & Conditions
+                </Link>
+            </label>
             
             <br />
             <br />
