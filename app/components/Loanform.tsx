@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react"; 
+import styles from "../styles/loanform.module.css"
 
 type Props = {
   processLoan: (
@@ -37,13 +38,16 @@ export default function LoanForm({processLoan}: Props) {
     };
 
     return (
-        <form onSubmit={handleSubmit} style={stlyes.inputContainer}>
+        <form 
+            onSubmit={handleSubmit}
+            className={styles.container}
+        >
             <input 
                 type="text"
                 value={accountNumber}
                 placeholder="AccountNumber"
                 onChange={(e) => setAccountNumber(e.target.value)}
-                style={stlyes.input} 
+                className={styles.input}
             />  
             
             <input 
@@ -51,7 +55,7 @@ export default function LoanForm({processLoan}: Props) {
                 value={amount}
                 placeholder="Amount"
                 onChange={(e) => setAmount(e.target.value)} 
-                style={stlyes.input}
+                className={styles.input}
             />
 
             <input
@@ -71,7 +75,7 @@ export default function LoanForm({processLoan}: Props) {
                         .split("T")[0]   
                 }
                 onChange={(e) => setDueDate(e.target.value)}
-                style={stlyes.input}
+                className={styles.input}
             />
             
             <input
@@ -79,30 +83,12 @@ export default function LoanForm({processLoan}: Props) {
                 value={pin}
                 placeholder="Pin"
                 onChange={(e) => setPin(e.target.value)}
-                style={stlyes.input}
+                className={styles.input}
             />
 
-            <button type="submit" style={stlyes.button} >Add Loan</button>
+            <button type="submit" className={styles.button} >Add Loan</button>
         </form>
   
     );
 
-};
-
-const stlyes = {
-    inputContainer: {
-        gap: "25px",
-        padding: "1opx"
-    },
-
-    button: {
-        padding: " 10px 20px",
-        background: "blue",
-        color: "white"
-    },
-
-    input: {
-        flex: 1,
-        padding: "10px"
-    },
 };

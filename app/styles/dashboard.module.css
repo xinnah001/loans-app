@@ -1,0 +1,41 @@
+.container {
+    max-width: none;
+    margin: left;
+    padding: 30px;
+    background: #f5f7fa;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: left;
+    font-family: "Inter", sans-serif;
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #003366;
+    margin-bottom: 20px;
+}
+
+.card {
+    flex: 1;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+.button {
+    margin-top: 15px;
+
+    background: #0056d6;
+    color: white;
+
+    padding: 10px 20px;
+
+    font-size: 15px;
+    font-weight: 600;
+
+    border: none;
+    border-radius: 10px;
+}

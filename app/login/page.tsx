@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import styles from "../styles/login.module.css"
 
 export default function LoginPage() {
     const router = useRouter();
@@ -37,12 +38,13 @@ export default function LoginPage() {
 
     return (
         <div>
-            <h1>LOGIN</h1>
+            <h1 className={styles.header}>LOGIN</h1>
 
             <input
                 value={userName}
                 placeholder="username"
                 onChange={(e) => setUserName(e.target.value)}
+                className={styles.input}
             />
 
             <br />
@@ -53,25 +55,19 @@ export default function LoginPage() {
                 value={password}
                 placeholder="password"
                 onChange={(e) => setPassword(e.target.value)}
+                className={styles.input}
             />
 
             <br />
             <br />
 
-            <button onClick={handleLogin} style={styles.button}>Login</button>
+            <button onClick={handleLogin} className={styles.button}>Login</button>
 
             <br />
             <br />
 
-            <button onClick={() => router.push("/")} style={styles.button}>Create Account</button>
+            <button onClick={() => router.push("/")} className={styles.button}>Create Account</button>
 
         </div>
     );
-};
-const styles = {
-     button: {
-        padding: " 10px 20px",
-        background: "blue",
-        color: "white"
-    },
-};
+}

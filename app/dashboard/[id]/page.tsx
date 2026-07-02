@@ -4,6 +4,7 @@ import { useState, useEffect, } from "react";
 import Balance from "../../components/Balance";
 import LoanForm from "../../components/Loanform";
 import LoanList from "../../components/Loanlist";
+import styles from "../../styles/dashboard.module.css"
 import { Loan } from "../../types/loans";
 import { useRouter, useParams } from "next/navigation";
 
@@ -180,37 +181,35 @@ export default function Dashboard() {
 
 
   return (
-    <main>
-      <h1>Dashboard</h1>
-      <h1>Welcome, {userName}</h1>
-      <h1>{phoneNumber}</h1>
-      <h1>Loan Limit: Ksh {loanLimit}</h1>
-      <Balance balance={balance} />
+    <main className={styles.container}>
+      <h1 className={styles.header}>Dashboard</h1>
+      <h1 className={styles.header}>Welcome, {userName}</h1>
+      <h1 className={styles.header}>Phone.No: {phoneNumber}</h1>
+      <h1 className={styles.card}>Loan Limit: Ksh {loanLimit}</h1>
+      <br />
+      <div className={styles.card}>
+        <Balance balance={balance} />
+      </div>
+      <br />
 
-      <LoanForm
-        processLoan={processLoan} 
-      />
+      <div className={styles.card}>
+        <LoanForm processLoan={processLoan} />
+      </div>
+      <br />
 
-      <LoanList
-        loans={loans}
-      />
+      <div className={styles.card}>
+        <LoanList loans={loans}/>
+      </div> 
+
       <br />
       <button 
         onClick={() => {localStorage.removeItem("loggedIn");
           localStorage.removeItem("currentUser");
          router.push("/login")}}
-        style={styles.button}
+         className={styles.button}
         >Log Out</button>
 
 
     </main>
   );
-};
-
-const styles = {
-     button: {
-        padding: " 10px 20px",
-        background: "blue",
-        color: "white"
-    },
 };

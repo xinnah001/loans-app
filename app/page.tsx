@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import styles from "../app/styles/signin.module.css"
 
 export default function SingUpPage() {
     const [userName, setUserName] = useState("");
@@ -58,12 +59,13 @@ export default function SingUpPage() {
 
     return (
         <div>
-            <h1>SIGN UP</h1>
+            <h1 className={styles.header}>SIGN UP</h1>
             <br />
             <input 
                 value={userName}
                 placeholder="Username"
                 onChange={((e) => setUserName(e.target.value))}
+                className={styles.input}
             />
             
             <br />
@@ -74,6 +76,7 @@ export default function SingUpPage() {
                 value={password}
                 placeholder="Password"
                 onChange={((e) => setPassword(e.target.value))}
+                className={styles.input}
             />
             
             <br />
@@ -83,6 +86,7 @@ export default function SingUpPage() {
                 value={phoneNumber}
                 placeholder="PhoneNumber"
                 onChange={((e) => setPhoneNumber(e.target.value))}
+                className={styles.input}
             />
             
             <br />
@@ -92,6 +96,7 @@ export default function SingUpPage() {
                 value={pin}
                 placeholder="Pin"
                 onChange={((e) => setPin(e.target.value))}
+                className={styles.input}
             />
             
             <br />
@@ -115,21 +120,13 @@ export default function SingUpPage() {
             <br />
             <br />
 
-            <button onClick={handleSignUp} style={styles.button}>Sign Up</button>
+            <button onClick={handleSignUp} className={styles.button}>Sign Up</button>
             
             <br />
             <br />
             <button onClick={() => router.push("/login")}
-                style={styles.button}
+                className={styles.button}
                 >Login</button>
         </div>
     );
-};
-
-const styles = {
-     button: {
-        padding: " 10px 20px",
-        background: "blue",
-        color: "white"
-    },
 };

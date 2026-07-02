@@ -3,6 +3,7 @@
 import { Loan } from "../types/loans";
 import { useRouter } from "next/navigation";
 import  Countdown  from "./Countdown"
+import styles from "../styles/loanlist.module.css"
 
 type Props = {
   loans: Loan[];
@@ -16,13 +17,13 @@ export default function LoanList({ loans }: Props) {
   );
 
   return (
-    <main style={styles.container}>
-      <ul style={styles.list}>
+    <main className={styles.loanCard}>
+      <ul className={styles.list}>
         {activeLoans.map((loan) => {
           const overdue = loan.dueDate && new Date() > new Date(loan.dueDate);
 
           return (
-            <li key={loan.id} style={styles.listItems}>
+            <li key={loan.id} className={styles.listItems}>
               {loan.phoneNumber}
 
               <br />
@@ -56,7 +57,7 @@ export default function LoanList({ loans }: Props) {
                 onClick={() =>
                   router.push(`/loans/${loan.id}/repay`)
                 }
-                style={styles.repayButton}
+                className={styles.repayButton}
               >
                 Repay
               </button>
@@ -66,31 +67,4 @@ export default function LoanList({ loans }: Props) {
       </ul>
     </main>
   );
-};
-
-const styles = {
-  container: {
-    width: "500px",
-    margin: "50px auto",
-  },
-
-  list: {
-    marginTop: "20px",
-    padding: 0,
-  },
-
-  listItems: {
-    marginBottom: "10px",
-    listStyle: "none",
-    border: "1px solid #ccc",
-    padding: "10px",
-    borderRadius: "8px",
-  },
-
-  repayButton: {
-    backgroundColor: "green",
-    color: "white",
-    border: "none",
-    padding: "0px 10px",
-  },
 };

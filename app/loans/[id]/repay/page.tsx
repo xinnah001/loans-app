@@ -3,6 +3,7 @@
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Loan } from "@/app/types/loans";
+import styles from "@/app/styles/repay.module.css"
 
 export default function RepayLoanPage() {
   const params = useParams();
@@ -186,40 +187,40 @@ export default function RepayLoanPage() {
   }
 
   return (
-    <main>
-      <h1>Repay Loan</h1>
+    <main className={styles.container}>
+      <h1 className={styles.header}>Repay Loan</h1>
 
-      <h3>
+      <h3 className={styles.header}>
         Destination Account:
         {" "}
         {loan.phoneNumber}
       </h3>
 
-      <h3>
+      <h3 className={styles.card}>
         Amount Borrowed:
         {" "}
         Ksh {loan.amountBorrowed}
       </h3>
 
-      <h3>
+      <h3 className={styles.card}>
         Interest:
         {" "}
         Ksh {loan.interest}
       </h3>
 
-      <h3>
+      <h3 className={styles.card}>
         Total Repayable:
         {" "}
         Ksh {loan.totalRepayable}
       </h3>
 
-      <h3>
+      <h3 className={styles.card}>
         Balance:
         {" "}
         Ksh {loan.remainingBalance}
       </h3>
 
-      <h3>
+      <h3 className={styles.card}>
         Status:
         {" "}
         {loan.status}
@@ -236,6 +237,7 @@ export default function RepayLoanPage() {
             e.target.value
           )
         }
+        className={styles.input}
       />
 
       <br />
@@ -250,6 +252,7 @@ export default function RepayLoanPage() {
             e.target.value
           )
         }
+        className={styles.input}
       />
 
       <br />
@@ -264,6 +267,7 @@ export default function RepayLoanPage() {
             e.target.value
           )
         }
+        className={styles.input}
       />
 
       <br />
@@ -273,7 +277,7 @@ export default function RepayLoanPage() {
         onClick={
           handleRepayment
         }
-        style={styles.button}
+        className={styles.button}
       >
         Repay Loan
       </button>
@@ -290,16 +294,8 @@ export default function RepayLoanPage() {
 
           router.push(`/dashboard/${user.id}`);
         }}
-        style={styles.button}
+        className={styles.button}
         >Cancel</button>
     </main>
   );
-};
-
-const styles = {
-     button: {
-        padding: " 10px 20px",
-        background: "blue",
-        color: "white"
-    },
 };
