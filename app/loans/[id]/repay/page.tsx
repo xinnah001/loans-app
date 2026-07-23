@@ -58,12 +58,7 @@ export default function RepayLoanPage() {
   }, [loanId, router]);
 
   const handleRepayment = () => {
-    if (!sourcePhoneNumber) {
-      alert(
-        "Enter source account number"
-      );
-      return;
-    }
+    
     const currentUser = localStorage.getItem("currentUser");
     if (!currentUser) {
       alert("No User Found");
