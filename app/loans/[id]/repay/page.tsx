@@ -71,11 +71,6 @@ export default function RepayLoanPage() {
     }
     const user = JSON.parse(currentUser);
 
-    if (sourcePhoneNumber !== user.phoneNumber) {
-      alert("Invalid Source")
-      return;
-    }
-
     if (pin !== user.pin) {
       alert("Invalid PIN");
       return;
