@@ -41,15 +41,7 @@ export default function LoanForm({processLoan}: Props) {
         <form 
             onSubmit={handleSubmit}
             className={styles.container}
-        >
-            <input 
-                type="text"
-                value={accountNumber}
-                placeholder="AccountNumber"
-                onChange={(e) => setAccountNumber(e.target.value)}
-                className={styles.input}
-            />  
-            
+        > 
             <input 
                 type="text"
                 value={amount}
