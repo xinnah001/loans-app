@@ -228,18 +228,6 @@ export default function RepayLoanPage() {
 
       <br />
 
-      <input
-        type="text"
-        placeholder="Phone Number"
-        value={sourcePhoneNumber}
-        onChange={(e) =>
-          setSourcePhoneNumber(
-            e.target.value
-          )
-        }
-        className={styles.input}
-      />
-
       <br />
       <br />
       
