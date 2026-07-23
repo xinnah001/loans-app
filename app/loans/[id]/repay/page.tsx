@@ -273,7 +273,7 @@ export default function RepayLoanPage() {
           router.push(`/dashboard/${user.id}`);
         }}
         className={styles.button}
-        >Cancel</button>
+        > Cancel </button>
     </main>
   );
 };
